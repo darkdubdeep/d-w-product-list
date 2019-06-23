@@ -34,9 +34,12 @@ class ProductDetail extends Component {
     this.props.getProductDetail(this.props.match.params.id);
   }
 
+  componentWillUnmount() {
+    this.props.clearProductDetail();
+  }
+
   openProductList = () => {
     this.props.history.push(`/`);
-    this.props.clearProductDetail();
   };
 
   render() {
