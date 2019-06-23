@@ -4,11 +4,11 @@ npm install
 
 npm start
 
-## for build
+## For build
 
 npm run build
 
-## project short description
+## Project short description
 
 For this task, i chose react + redux + material UI framework.
 
