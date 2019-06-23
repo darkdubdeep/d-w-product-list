@@ -44,7 +44,6 @@ class ProductDetail extends Component {
 
   render() {
     const product = this.props.product;
-    console.log(product);
     const { classes } = this.props;
     if (!product.assets) {
       return <h1 className={classes.loadingIndiactor}>Loading...</h1>;

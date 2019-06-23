@@ -70,7 +70,8 @@ export const getProductsData2 = body => dispatch => {
           for (let productsItem of productData) {
             let assets = values.find(
               item =>
-                item.data.data.id == productsItem.data.data.elements[8].value.id
+                item.data.data.id ===
+                productsItem.data.data.elements[8].value.id
             );
             productsItem.data.data.assets = assets;
             if (!products.find(item => item.id === productsItem.data.data.id)) {
@@ -91,7 +92,6 @@ export const getProductsData2 = body => dispatch => {
 
 export const getProductDetail = id => dispatch => {
   return axios.get(`${apiUrl}/products/${id}`).then(response => {
-    console.log(response.data.data);
     let productData = response.data.data;
     axios
       .get(
