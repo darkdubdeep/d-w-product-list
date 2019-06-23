@@ -1,6 +1,13 @@
-npm install
+## For run
 
-npm start serve
+npm install
+npm start
+
+##for build
+
+npm run build
+
+##project short description
 
 For this task, i chose react + redux + material UI framework.
 
