@@ -31,8 +31,12 @@ const styles = theme => ({
       width: 900
     }
   },
-  inline: {
-    display: 'inline'
+  productName: {
+    display: 'inline-block',
+    paddingTop: 12
+  },
+  productPrice: {
+    display: 'inline-block'
   }
 });
 
@@ -61,31 +65,45 @@ class ProductsList extends Component {
           >
             <List className={classes.root}>
               {products.map(product => (
-                <ListItem alignItems='flex-start' button key={product.id}>
-                  <ListItemAvatar>
-                    <img
-                      src={product.assets.uri}
-                      alt='product'
-                      className={classes.productImage}
+                <React.Fragment key={product.id}>
+                  <ListItem alignItems='flex-start' button>
+                    <ListItemAvatar>
+                      <img
+                        src={product.assets.uri}
+                        alt='product'
+                        className={classes.productImage}
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <React.Fragment>
+                          <Typography
+                            component='span'
+                            variant='h6'
+                            className={classes.productName}
+                            color='textPrimary'
+                          >
+                            {product.elements[1].value}
+                          </Typography>
+                        </React.Fragment>
+                      }
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            component='span'
+                            variant='body2'
+                            className={classes.productPrice}
+                            color='textPrimary'
+                          >
+                            Price: {product.elements[3].value.value}{' '}
+                            {product.elements[3].value.unitAbbreviation}
+                          </Typography>
+                        </React.Fragment>
+                      }
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={product.elements[1].value}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component='span'
-                          variant='body2'
-                          className={classes.inline}
-                          color='textPrimary'
-                        >
-                          Price: {product.elements[3].value.value}{' '}
-                          {product.elements[3].value.unitAbbreviation}
-                        </Typography>
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
               ))}
             </List>
           </Grid>
