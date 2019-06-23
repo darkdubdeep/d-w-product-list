@@ -9,8 +9,9 @@ export const getProductsData = body => dispatch => {
   return axios
     .get(`${apiUrl}/products`)
     .then(response => {
-      for (let item of response.data.data) {
-        axios.get(`${apiUrl}/products/${item.id}`).then(response => {
+      const initialData = response.data.data;
+      for (let i = 0, len = initialData.length; i < len; i++) {
+        axios.get(`${apiUrl}/products/${initialData[i].id}`).then(response => {
           let productData = response.data.data;
           axios
             .get(
@@ -21,17 +22,17 @@ export const getProductsData = body => dispatch => {
             .then(response => {
               productData.assets = response.data.data;
               products.push(productData);
-              console.log(products);
+              // if (i === initialData.length - 1)
+              setTimeout(() => {
+                dispatch({
+                  type: GET_PRODUCTS_DATA,
+                  payload: products
+                });
+              }, 300);
             });
         });
       }
     })
-    .then(
-      dispatch({
-        type: GET_PRODUCTS_DATA,
-        payload: products
-      })
-    )
     .catch(error => {
       throw error;
     });

@@ -16,12 +16,15 @@ const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 500,
-    marginTop: 150,
+    marginTop: 100,
     backgroundColor: theme.palette.background.paper
+  },
+  loadingIndiactor: {
+    textAlign: 'center'
   },
   productImage: {
     paddingRight: 10,
-    width: 200
+    width: 150
   },
   customGridWidth: {
     [theme.breakpoints.up('lg')]: {
@@ -39,50 +42,55 @@ class ProductsList extends Component {
   }
   render() {
     const { classes, products } = this.props;
-    return (
-      <Fragment>
-        <p>{products}</p>
-        <Grid
-          className={classes.customGridWidth}
-          container
-          direction='row'
-          justify='center'
-          spacing={10}
-          style={{
-            margin: 'auto',
-            width: '60%'
-          }}
-        >
-          <List className={classes.root}>
-            <ListItem alignItems='flex-start' button>
-              <ListItemAvatar>
-                <img
-                  src='https://im0-tub-ru.yandex.net/i?id=630eb42034cc348f04b6471b6c9d38f1&n=13'
-                  alt='product'
-                  className={classes.productImage}
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary='Watch name'
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component='span'
-                      variant='body2'
-                      className={classes.inline}
-                      color='textPrimary'
-                    >
-                      Price:
-                    </Typography>
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider />
-          </List>
-        </Grid>
-      </Fragment>
-    );
+    console.log(products);
+    if (!products.length) {
+      return <h1 className={classes.loadingIndiactor}>Loading...</h1>;
+    } else
+      return (
+        <Fragment>
+          <Grid
+            className={classes.customGridWidth}
+            container
+            direction='row'
+            justify='center'
+            spacing={10}
+            style={{
+              margin: 'auto',
+              width: '60%'
+            }}
+          >
+            <List className={classes.root}>
+              {products.map(product => (
+                <ListItem alignItems='flex-start' button key={product.id}>
+                  <ListItemAvatar>
+                    <img
+                      src={product.assets.uri}
+                      alt='product'
+                      className={classes.productImage}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={product.elements[1].value}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component='span'
+                          variant='body2'
+                          className={classes.inline}
+                          color='textPrimary'
+                        >
+                          Price: {product.elements[3].value.value}{' '}
+                          {product.elements[3].value.unitAbbreviation}
+                        </Typography>
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+        </Fragment>
+      );
   }
 }
 
