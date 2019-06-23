@@ -1,6 +1,5 @@
-Run application:
-
 npm install
+
 npm start serve
 
 For this task, i chose react + redux + material UI framework.
