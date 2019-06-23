@@ -1,4 +1,8 @@
-import { GET_PRODUCTS_DATA } from './types';
+import {
+  GET_PRODUCTS_DATA,
+  GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL
+} from './types';
 
 import axios from 'axios';
 
@@ -36,4 +40,30 @@ export const getProductsData = body => dispatch => {
     .catch(error => {
       throw error;
     });
+};
+export const getProductDetail = id => dispatch => {
+  return axios.get(`${apiUrl}/products/${id}`).then(response => {
+    console.log(response.data.data);
+    let productData = response.data.data;
+    axios
+      .get(
+        `${apiUrl}/assets/${
+          productData.elements[productData.elements.length - 1].value.id
+        }`
+      )
+      .then(response => {
+        productData.assets = response.data.data;
+        dispatch({
+          type: GET_PRODUCT_DETAIL,
+          payload: productData
+        });
+      });
+  });
+};
+
+export const clearProductDetail = () => dispatch => {
+  dispatch({
+    type: CLEAR_PRODUCT_DETAIL,
+    payload: {}
+  });
 };

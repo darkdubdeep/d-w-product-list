@@ -16,7 +16,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 500,
-    marginTop: 100,
+    marginTop: 20,
     backgroundColor: theme.palette.background.paper
   },
   loadingIndiactor: {
@@ -44,9 +44,13 @@ class ProductsList extends Component {
   componentDidMount() {
     this.props.getProductsData();
   }
+
+  openProductDetail = id => {
+    this.props.history.push(`/product-detail/${id}`);
+  };
+
   render() {
     const { classes, products } = this.props;
-    console.log(products);
     if (!products.length) {
       return <h1 className={classes.loadingIndiactor}>Loading...</h1>;
     } else
@@ -66,7 +70,11 @@ class ProductsList extends Component {
             <List className={classes.root}>
               {products.map(product => (
                 <React.Fragment key={product.id}>
-                  <ListItem alignItems='flex-start' button>
+                  <ListItem
+                    alignItems='flex-start'
+                    button
+                    onClick={() => this.openProductDetail(product.id)}
+                  >
                     <ListItemAvatar>
                       <img
                         src={product.assets.uri}

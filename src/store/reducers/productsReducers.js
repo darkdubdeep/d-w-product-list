@@ -1,7 +1,12 @@
-import { GET_PRODUCTS_DATA } from '../actions/types';
+import {
+  GET_PRODUCTS_DATA,
+  GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL
+} from '../actions/types';
 
 const initialState = {
-  products: []
+  products: [],
+  product: {}
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +15,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         products: action.payload
+      };
+    case GET_PRODUCT_DETAIL:
+      return {
+        ...state,
+        product: action.payload
+      };
+    case CLEAR_PRODUCT_DETAIL:
+      return {
+        ...state,
+        product: {}
       };
     default:
       return state;
